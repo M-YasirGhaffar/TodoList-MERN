@@ -10,6 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #22afe7;
 }
 
 code {
@@ -25,7 +26,9 @@ code {
 
 h1{
   margin-top: 1rem;
+  color: #20e720;
   text-align: center;
+  -webkit-text-stroke:1px white;
 }
 
 .top{
@@ -39,23 +42,30 @@ input {
   border: none;
   outline: none;
   width: 400px;
-  padding: 0.3rem;
-  border-bottom: 1px solid #000;
+  padding: 0.5rem;
+  background: transparent;
+  border-bottom: 1px solid #FFFFFF;
+  color: white;
+}
+
+input::placeholder {
+  color: #ffffff;
 }
 
 .add {
-  background-color: #000;
+  background-color: #44eb44;
   color: #fff;
   padding: 0.5rem 1rem;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .todo {
   position: relative;
   margin-top: 1rem;
-  background-color: #000;
+  background-color: #333333;
   color: #fff;
-  padding: 1.5rem 3rem;
+  padding: 1rem 3rem;
   border-radius: 5px;
 }
 
@@ -66,9 +76,17 @@ input {
   right: 20px;
   display: flex;
   gap: 0.5rem;
+  color: rgb(247, 244, 244);
 }
 
 .icon {
   cursor: pointer;
   font-size: 20px;
+  z-index: 4;
+}
+
+@media (max-width: 500px) {
+  .todo {
+    padding: 1rem;
+  }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './App.css';
 import ToDo from './components/ToDo';
 import { addToDo, getAllToDo, updateToDo, deleteToDo } from './utils/HandleApi';
@@ -8,6 +8,7 @@ function App() {
   const [text, setText] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
   const [toDoId, setToDoId] = useState('');
+  const inputRef = useRef();
 
   const updateMode = (_id, text) => {
     setIsUpdating(true);
@@ -19,28 +20,58 @@ function App() {
     getAllToDo(setToDo);
   }, []);
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleButtonClick();
+    }
+  }
+
+  const handleButtonClick = () => {
+    const button = document.querySelector('.add');
+
+    if (inputRef.current.value.trim()) {
+      if (button && button.textContent === 'Update') {
+        updateToDo(toDoId, inputRef.current.value, setText, setToDo, setIsUpdating);
+      } else {
+        addToDo(inputRef.current.value, setText, setToDo);
+      }
+    } else {
+      alert('Input cannot be empty!')
+    }
+  }
+
+  const handleClick = () => {
+    const button = document.querySelector('.add');
+
+    if (inputRef.current.value.trim()) {
+      if (button && button.textContent === 'Update') {
+        updateToDo(toDoId, inputRef.current.value, setText, setToDo, setIsUpdating);
+      } else {
+        addToDo(inputRef.current.value, setText, setToDo);
+      }
+    } else {
+      alert('Input cannot be empty!')
+    }
+
+  }
+
   return (
     <>
       <div className='App'>
         <div className='container'>
-          <h1>ToDo App</h1>
+          <h1>Taskify</h1>
           <div className='top'>
             <input
+              id='myInput'
               placeholder='e.g. Get some milk, dad.'
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onKeyDown={handleKeyDown}
+              ref={inputRef}
+              onChange={(e) => { setText(e.target.value) }}
             />
             <div
               className='add'
-              onClick={
-                isUpdating
-                  ? () => {
-                      updateToDo(toDoId, text, setText, setToDo, setIsUpdating);
-                    }
-                  : () => {
-                      addToDo(text, setText, setToDo);
-                    }
-              }>
+              onClick={handleClick}>
               {isUpdating ? 'Update' : 'Add'}
             </div>
           </div>
