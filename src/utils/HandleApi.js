@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8000';
+const baseUrl = 'https://todolist-restapi.onrender.com';
 
 const getAllToDo = async (setToDo) => {
     try {
